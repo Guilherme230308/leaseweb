@@ -2,8 +2,6 @@
 
 Angular 19 client-facing demo (product list, configurable product detail, B2B quote).
 
-Architecture notes: **[ARCHITECTURE.pdf](./ARCHITECTURE.pdf)**.
-
 ---
 
 ## Requirements
