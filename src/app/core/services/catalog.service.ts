@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable, map } from 'rxjs';
+import { Observable, filter, map } from 'rxjs';
 import { OccProductAdapter } from '../occ/occ-product.adapter';
 import { Product } from '../models/infrastructure.model';
 import { defaultConfig, monthlyPrice } from '../pricing/price';
@@ -9,13 +9,14 @@ import { defaultConfig, monthlyPrice } from '../pricing/price';
 export class CatalogService {
   private readonly adapter = inject(OccProductAdapter);
   private readonly catalog = toSignal(this.adapter.load(), {
-    initialValue: { products: [], locations: [] },
+    initialValue: { products: [], locations: [], status: 'loading' as const },
   });
 
   readonly locationFilter = signal('');
 
   readonly products = computed(() => this.catalog().products);
   readonly locations = computed(() => this.catalog().locations);
+  readonly status = computed(() => this.catalog().status);
 
   readonly filtered = computed(() => {
     const location = this.locationFilter();
@@ -27,7 +28,10 @@ export class CatalogService {
   }
 
   product$(code: string | null): Observable<Product | undefined> {
-    return this.adapter.load().pipe(map((catalog) => catalog.products.find((item) => item.id === code)));
+    return this.adapter.load().pipe(
+      filter((catalog) => catalog.status !== 'loading'),
+      map((catalog) => catalog.products.find((item) => item.id === code))
+    );
   }
 
   locationById(id: string) {
@@ -36,5 +40,9 @@ export class CatalogService {
 
   startingPrice(product: Product): number {
     return monthlyPrice(product, defaultConfig(product));
+  }
+
+  retry(): void {
+    this.adapter.retry();
   }
 }

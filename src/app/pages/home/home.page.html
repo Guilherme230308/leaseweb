@@ -49,10 +49,20 @@
   <div class="container">
       <p class="section-kicker">Product list</p>
     <h2 class="section-title">Start from a model</h2>
-    <div class="product-grid" style="margin-top:28px">
-      @for (product of catalog.products(); track product.id) {
-        <app-product-card [product]="product" [price]="catalog.startingPrice(product)" />
-      }
-    </div>
+    @if (catalog.status() === 'loading') {
+      <p class="muted" style="margin-top:28px">Loading servers…</p>
+    } @else if (catalog.status() === 'error') {
+      <div class="card empty-state" style="margin-top:28px">
+        <h2>Catalog failed to load</h2>
+        <p>Check the network tab, then try again.</p>
+        <button class="btn btn-primary" type="button" (click)="catalog.retry()">Try again</button>
+      </div>
+    } @else {
+      <div class="product-grid" style="margin-top:28px">
+        @for (product of catalog.products(); track product.id) {
+          <app-product-card [product]="product" [price]="catalog.startingPrice(product)" />
+        }
+      </div>
+    }
   </div>
 </section>

@@ -1,4 +1,19 @@
-@if (product(); as product) {
+@if (catalog.status() === 'loading') {
+  <div class="container" style="padding:36px 0 80px">
+    <div class="card empty-state">
+      <h2>Loading server</h2>
+      <p>Fetching this product from the catalog.</p>
+    </div>
+  </div>
+} @else if (catalog.status() === 'error') {
+  <div class="container" style="padding:36px 0 80px">
+    <div class="card empty-state">
+      <h2>Catalog failed to load</h2>
+      <p>Check the network tab, then try again.</p>
+      <button class="btn btn-primary" type="button" (click)="catalog.retry()">Try again</button>
+    </div>
+  </div>
+} @else if (product(); as product) {
   @if (config(); as config) {
     <div class="container" style="padding-top:28px">
       <a class="btn-link" routerLink="/servers">← All servers</a>

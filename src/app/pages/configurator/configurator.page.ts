@@ -1,6 +1,7 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { Component, computed, inject, input, signal } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { Router, RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { Product, ServerConfig } from '../../core/models/infrastructure.model';
 import { EurPipe } from '../../core/pipes/eur.pipe';
 import { defaultConfig, monthlyPrice } from '../../core/pricing/price';
@@ -13,11 +14,11 @@ import { QuoteService } from '../../core/services/quote.service';
   templateUrl: './configurator.page.html',
   styles: [':host { display: block; }'],
 })
-export class ConfiguratorPage implements OnInit {
-  private readonly route = inject(ActivatedRoute);
+export class ConfiguratorPage {
   private readonly router = inject(Router);
   readonly catalog = inject(CatalogService);
   readonly quote = inject(QuoteService);
+  readonly sku = input<string>();
 
   readonly product = signal<Product | null>(null);
   readonly config = signal<ServerConfig | null>(null);
@@ -36,17 +37,20 @@ export class ConfiguratorPage implements OnInit {
     return this.catalog.locations().filter((location) => product.locations.includes(location.id));
   });
 
-  ngOnInit(): void {
-    this.route.paramMap
+  constructor() {
+    toObservable(this.sku)
       .pipe(
-        map((params) => params.get('sku')),
-        switchMap((sku) => this.catalog.product$(sku))
+        switchMap((code) => this.catalog.product$(code ?? null)),
+        takeUntilDestroyed()
       )
       .subscribe((found) => {
+        if (this.catalog.status() !== 'ready') {
+          this.product.set(null);
+          this.config.set(null);
+          return;
+        }
         if (!found) {
-          if (this.catalog.products().length) {
-            void this.router.navigate(['/servers']);
-          }
+          void this.router.navigate(['/servers']);
           return;
         }
         this.product.set(found);
