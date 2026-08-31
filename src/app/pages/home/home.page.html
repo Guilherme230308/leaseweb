@@ -1,0 +1,58 @@
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="section-kicker">Dedicated servers</p>
+      <h1>Build a server. See the monthly price.</h1>
+      <p class="hero-lead">
+        Configure a dedicated server, pick location and RAM, then request a quote.
+        The monthly price updates as you go.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" routerLink="/servers">Browse servers</a>
+        <a class="btn btn-ghost" routerLink="/configure/lw-gp-epyc">Start with EPYC</a>
+      </div>
+    </div>
+    <aside class="card hero-panel">
+      <h2>What you configure</h2>
+      <div class="hero-stat"><span>Location</span><strong>AMS, FRA, NYC, SIN</strong></div>
+      <div class="hero-stat"><span>Memory</span><strong>32 to 256 GB</strong></div>
+      <div class="hero-stat"><span>Term</span><strong>Monthly or 12 months (−10%)</strong></div>
+    </aside>
+  </div>
+</section>
+
+<section class="section" style="background:var(--lw-bg)">
+  <div class="container">
+    <p class="section-kicker">How it works</p>
+    <h2 class="section-title">Three steps</h2>
+    <div class="steps-grid">
+      <article class="card step-card">
+        <div class="badge">01</div>
+        <h3>Pick a server</h3>
+        <p class="muted">General purpose, high performance, GPU, or high bandwidth.</p>
+      </article>
+      <article class="card step-card">
+        <div class="badge">02</div>
+        <h3>Tune it</h3>
+        <p class="muted">Location and RAM. The monthly price updates as you click.</p>
+      </article>
+      <article class="card step-card">
+        <div class="badge">03</div>
+        <h3>Request a B2B quote</h3>
+        <p class="muted">No payment in-app. Sales would verify, then provision.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-bottom:96px">
+  <div class="container">
+      <p class="section-kicker">Product list</p>
+    <h2 class="section-title">Start from a model</h2>
+    <div class="product-grid" style="margin-top:28px">
+      @for (product of catalog.products(); track product.id) {
+        <app-product-card [product]="product" [price]="catalog.startingPrice(product)" />
+      }
+    </div>
+  </div>
+</section>

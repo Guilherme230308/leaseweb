@@ -1,0 +1,155 @@
+{
+  "pointOfServices": [
+    {
+      "name": "AMS-01",
+      "displayName": "Amsterdam",
+      "address": { "country": { "isocode": "NL" } }
+    },
+    {
+      "name": "FRA-10",
+      "displayName": "Frankfurt",
+      "address": { "country": { "isocode": "DE" } }
+    },
+    {
+      "name": "NYC-01",
+      "displayName": "New York",
+      "address": { "country": { "isocode": "US" } }
+    },
+    {
+      "name": "SIN-01",
+      "displayName": "Singapore",
+      "address": { "country": { "isocode": "SG" } }
+    }
+  ],
+  "products": [
+    {
+      "code": "lw-gp-epyc",
+      "name": "General Purpose EPYC",
+      "summary": "Everyday production without a hypervisor tax",
+      "description": "Single-tenant AMD server for web and SaaS. Pick a datacenter, add RAM, and lock a term.",
+      "purchasable": true,
+      "price": { "currencyIso": "EUR", "value": 79 },
+      "stock": { "stockLevelStatus": "inStock" },
+      "categories": [{ "code": "dedicated-servers", "name": "Dedicated Servers" }],
+      "classifications": [
+        {
+          "code": "hardware",
+          "name": "Hardware",
+          "features": [
+            { "code": "processor", "name": "Processor", "featureValues": [{ "value": "AMD EPYC 7313P · 16 cores" }] },
+            { "code": "baseRamGb", "name": "Base RAM (GB)", "featureValues": [{ "value": "32" }] },
+            { "code": "ramDeltaPer32", "name": "RAM delta per 32GB", "featureValues": [{ "value": "16" }] },
+            { "code": "locationCodes", "name": "Allowed locations", "featureValues": [{ "value": "AMS-01,FRA-10,NYC-01,SIN-01" }] }
+          ]
+        }
+      ],
+      "baseOptions": [
+        {
+          "variantType": "LeasewebRamVariant",
+          "options": [
+            { "code": "lw-gp-epyc-ram-32", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "32" }], "priceData": { "value": 0 } },
+            { "code": "lw-gp-epyc-ram-64", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "64" }], "priceData": { "value": 16 } },
+            { "code": "lw-gp-epyc-ram-128", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "128" }], "priceData": { "value": 48 } }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "lw-hp-gold",
+      "name": "High Performance Gold",
+      "summary": "Dual-processor density for demanding compute",
+      "description": "More cores for databases and CI. Same configurator, higher baseline.",
+      "purchasable": true,
+      "price": { "currencyIso": "EUR", "value": 189 },
+      "stock": { "stockLevelStatus": "inStock" },
+      "tags": ["Popular"],
+      "categories": [{ "code": "dedicated-servers", "name": "Dedicated Servers" }],
+      "classifications": [
+        {
+          "code": "hardware",
+          "name": "Hardware",
+          "features": [
+            { "code": "processor", "name": "Processor", "featureValues": [{ "value": "2 × Intel Xeon Gold · 48 cores" }] },
+            { "code": "baseRamGb", "name": "Base RAM (GB)", "featureValues": [{ "value": "64" }] },
+            { "code": "ramDeltaPer32", "name": "RAM delta per 32GB", "featureValues": [{ "value": "18" }] },
+            { "code": "locationCodes", "name": "Allowed locations", "featureValues": [{ "value": "AMS-01,FRA-10,NYC-01" }] }
+          ]
+        }
+      ],
+      "baseOptions": [
+        {
+          "variantType": "LeasewebRamVariant",
+          "options": [
+            { "code": "lw-hp-gold-ram-64", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "64" }], "priceData": { "value": 0 } },
+            { "code": "lw-hp-gold-ram-128", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "128" }], "priceData": { "value": 36 } },
+            { "code": "lw-hp-gold-ram-256", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "256" }], "priceData": { "value": 108 } }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "lw-gpu-l4",
+      "name": "GPU NVIDIA L4",
+      "summary": "Inference and transcoding on dedicated hardware",
+      "description": "NVIDIA L4 for AI inference. Month-to-month, no public-cloud GPU markup.",
+      "purchasable": true,
+      "price": { "currencyIso": "EUR", "value": 499 },
+      "stock": { "stockLevelStatus": "inStock" },
+      "tags": ["AI ready"],
+      "categories": [{ "code": "dedicated-servers", "name": "Dedicated Servers" }],
+      "classifications": [
+        {
+          "code": "hardware",
+          "name": "Hardware",
+          "features": [
+            { "code": "processor", "name": "Processor", "featureValues": [{ "value": "AMD EPYC + NVIDIA L4 24GB" }] },
+            { "code": "baseRamGb", "name": "Base RAM (GB)", "featureValues": [{ "value": "128" }] },
+            { "code": "ramDeltaPer32", "name": "RAM delta per 32GB", "featureValues": [{ "value": "20" }] },
+            { "code": "locationCodes", "name": "Allowed locations", "featureValues": [{ "value": "AMS-01,NYC-01" }] }
+          ]
+        }
+      ],
+      "baseOptions": [
+        {
+          "variantType": "LeasewebRamVariant",
+          "options": [
+            { "code": "lw-gpu-l4-ram-128", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "128" }], "priceData": { "value": 0 } },
+            { "code": "lw-gpu-l4-ram-256", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "256" }], "priceData": { "value": 80 } }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "lw-hb-10g",
+      "name": "High Bandwidth 10G",
+      "summary": "Unmetered throughput on a global network",
+      "description": "For streaming origins and high egress. Available in Europe and Singapore.",
+      "purchasable": true,
+      "price": { "currencyIso": "EUR", "value": 249 },
+      "stock": { "stockLevelStatus": "inStock" },
+      "tags": ["Unmetered"],
+      "categories": [{ "code": "dedicated-servers", "name": "Dedicated Servers" }],
+      "classifications": [
+        {
+          "code": "hardware",
+          "name": "Hardware",
+          "features": [
+            { "code": "processor", "name": "Processor", "featureValues": [{ "value": "AMD EPYC 7443P · 24 cores" }] },
+            { "code": "baseRamGb", "name": "Base RAM (GB)", "featureValues": [{ "value": "64" }] },
+            { "code": "ramDeltaPer32", "name": "RAM delta per 32GB", "featureValues": [{ "value": "16" }] },
+            { "code": "locationCodes", "name": "Allowed locations", "featureValues": [{ "value": "AMS-01,FRA-10,SIN-01" }] }
+          ]
+        }
+      ],
+      "baseOptions": [
+        {
+          "variantType": "LeasewebRamVariant",
+          "options": [
+            { "code": "lw-hb-10g-ram-64", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "64" }], "priceData": { "value": 0 } },
+            { "code": "lw-hb-10g-ram-128", "variantOptionQualifiers": [{ "qualifier": "ramGb", "value": "128" }], "priceData": { "value": 32 } }
+          ]
+        }
+      ]
+    }
+  ]
+}

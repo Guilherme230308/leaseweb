@@ -1,0 +1,10 @@
+<a class="card product-card" [routerLink]="['/configure', product().id]">
+  @if (product().badge) {
+    <span class="badge badge-green">{{ product().badge }}</span>
+  }
+  <h3>{{ product().name }}</h3>
+  <p>{{ product().tagline }}</p>
+  <p class="product-meta">{{ product().processor }} · {{ product().locations.length }} locations</p>
+  <div class="price">{{ price() | eur }} <small>/mo from</small></div>
+  <span class="learn-more">Configure →</span>
+</a>

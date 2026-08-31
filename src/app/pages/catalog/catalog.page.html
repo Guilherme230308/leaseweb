@@ -1,0 +1,35 @@
+<div class="container" style="padding:36px 0 80px">
+  <p class="section-kicker">Product list</p>
+  <h1>Four dedicated servers</h1>
+  <p class="muted">Filter by datacenter. Not every model ships everywhere.</p>
+
+  <div style="display:flex; flex-wrap:wrap; gap:8px; margin:20px 0 28px">
+    <button type="button" class="chip" [class.active]="!catalog.locationFilter()" (click)="catalog.locationFilter.set('')">
+      All locations
+    </button>
+    @for (location of catalog.locations(); track location.id) {
+      <button
+        type="button"
+        class="chip"
+        [class.active]="catalog.locationFilter() === location.id"
+        (click)="catalog.locationFilter.set(location.id)"
+      >
+        {{ location.city }}
+      </button>
+    }
+  </div>
+
+  @if (catalog.filtered().length === 0) {
+    <div class="card empty-state">
+      <h2>Nothing in that datacenter</h2>
+      <p>Try another location — GPU, for example, is only in Amsterdam and New York.</p>
+      <button class="btn btn-primary" type="button" (click)="catalog.locationFilter.set('')">Show all servers</button>
+    </div>
+  } @else {
+    <div class="product-grid">
+      @for (product of catalog.filtered(); track product.id) {
+        <app-product-card [product]="product" [price]="catalog.startingPrice(product)" />
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,69 @@
+@if (product(); as product) {
+  @if (config(); as config) {
+    <div class="container" style="padding-top:28px">
+      <a class="btn-link" routerLink="/servers">← All servers</a>
+      <p class="section-kicker" style="margin-top:16px">Product detail</p>
+      <h1>{{ product.name }}</h1>
+      <p class="muted" style="max-width:60ch">{{ product.description }}</p>
+      <p class="muted">{{ product.processor }}</p>
+    </div>
+
+    <div class="container config-layout">
+      <div>
+        <section class="card option-group">
+          <h2>Location</h2>
+          <div class="option-grid">
+            @for (location of availableLocations(); track location.id) {
+              <button
+                type="button"
+                class="option-btn"
+                [class.selected]="config.locationId === location.id"
+                (click)="patch({ locationId: location.id })"
+              >
+                <strong>{{ location.city }}</strong><br />
+                <span class="muted">{{ location.id }} · {{ location.countryCode }}</span>
+              </button>
+            }
+          </div>
+        </section>
+
+        <section class="card option-group">
+          <h2>Memory</h2>
+          <div class="option-grid">
+            @for (ram of product.ramOptions; track ram) {
+              <button type="button" class="option-btn" [class.selected]="config.ramGb === ram" (click)="patch({ ramGb: ram })">
+                {{ ram }} GB RAM
+              </button>
+            }
+          </div>
+        </section>
+
+        <section class="card option-group">
+          <h2>Contract</h2>
+          <div class="option-grid">
+            <button type="button" class="option-btn" [class.selected]="config.contractTerm === '1'" (click)="patch({ contractTerm: '1' })">
+              Month to month
+            </button>
+            <button
+              type="button"
+              class="option-btn"
+              [class.selected]="config.contractTerm === '12'"
+              (click)="patch({ contractTerm: '12' })"
+            >
+              12 months · 10% off
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <aside class="card summary-card" aria-live="polite">
+        <p class="section-kicker">Monthly estimate</p>
+        <div class="price">{{ price() | eur }} <small>/mo</small></div>
+        <p class="muted">Singapore adds €12. A 12-month term takes 10% off.</p>
+        <button class="btn btn-primary" type="button" style="width:100%; margin-top:16px" (click)="requestQuote()">
+          Request this quote
+        </button>
+      </aside>
+    </div>
+  }
+}
